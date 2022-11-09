@@ -1,7 +1,6 @@
 import 'package:blocpractice/aplication/cubit/photos_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,16 +15,21 @@ class HomePage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }, photosloaded: (value) {
-            final PhotosList = value.photos;
+            final photosList = value.photos;
             return ListView.builder(
-                itemCount: PhotosList.length,
+                itemCount: photosList.length,
                 itemBuilder: ((context, index) {
-                  final photo = PhotosList[index];
+                  final photo = photosList[index];
 
                   return Column(
                     children: [
                       Image.network(photo.thumbnailUrl),
-                      Text(photo.title)
+                      Row(
+                        children: [
+                          Text(photo.id.toString()),
+                          Text(photo.title),
+                        ],
+                      )
                     ],
                   );
                 }));
